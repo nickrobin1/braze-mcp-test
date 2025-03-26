@@ -55,6 +55,7 @@ class MCPService {
 
     try {
       // Send message to OpenAI through Netlify Function
+      console.log('Sending message to API...');
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
@@ -68,7 +69,13 @@ class MCPService {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to process message');
+        const errorText = await response.text();
+        console.error('API Error:', {
+          status: response.status,
+          statusText: response.statusText,
+          body: errorText
+        });
+        throw new Error(`Failed to process message: ${response.status} ${response.statusText}`);
       }
 
       const { message: assistantMessage } = await response.json();

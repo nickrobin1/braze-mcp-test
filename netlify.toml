@@ -5,10 +5,14 @@
 
 [dev]
   framework = "vite"
-  port = 8888
-  targetPort = 8888
+  port = 8889
+  targetPort = 5173
+  functionsPort = 8890
+  functions = "./netlify/functions"
+  autoLaunch = true
 
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
-  status = 200 
+  status = 200
+  force = true 
