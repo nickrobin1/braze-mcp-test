@@ -79,6 +79,7 @@ class MCPService {
       }
 
       const { message: assistantMessage } = await response.json();
+      console.log('Received assistant message:', assistantMessage);
       
       // Check if the response is a tool call
       try {
@@ -91,6 +92,7 @@ class MCPService {
             content: JSON.stringify(toolResponse),
             timestamp: new Date(),
           });
+          console.log('Added tool response to history');
         }
       } catch (e) {
         // If not a tool call, add as regular message
@@ -99,6 +101,7 @@ class MCPService {
           content: assistantMessage,
           timestamp: new Date(),
         });
+        console.log('Added regular message to history, current history length:', this.messageHistory.length);
       }
     } catch (error) {
       console.error('Error processing message:', error);

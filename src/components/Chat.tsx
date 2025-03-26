@@ -28,13 +28,30 @@ const Chat: React.FC<ChatProps> = ({ mcpService, tools }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesLengthRef = useRef<number>(0);
 
   useEffect(() => {
     connectToMCP();
+    
+    // Set up interval to poll for new messages
+    const messagePoller = setInterval(() => {
+      const serviceMessages = mcpService.getMessageHistory();
+      if (serviceMessages.length !== messagesLengthRef.current) {
+        messagesLengthRef.current = serviceMessages.length;
+        setMessages([...serviceMessages]);
+      }
+    }, 500); // Check every 500ms
+    
     return () => {
+      clearInterval(messagePoller);
       mcpService.disconnect();
     };
-  }, []);
+  }, [mcpService]);
+
+  // Update the ref when messages change
+  useEffect(() => {
+    messagesLengthRef.current = messages.length;
+  }, [messages]);
 
   const connectToMCP = async () => {
     try {
@@ -71,6 +88,10 @@ const Chat: React.FC<ChatProps> = ({ mcpService, tools }) => {
 
     try {
       await mcpService.sendMessage(input);
+      // Update messages after sending
+      const updatedMessages = mcpService.getMessageHistory();
+      messagesLengthRef.current = updatedMessages.length;
+      setMessages([...updatedMessages]);
     } catch (error) {
       console.error('Failed to send message:', error);
     } finally {
