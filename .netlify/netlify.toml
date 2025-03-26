@@ -1,0 +1,47 @@
+functionsDirectory = "/Users/nick.robin/Documents/My Cursor Projects/Personal/braze-mcp-test-3/netlify/functions"
+functionsDirectoryOrigin = "config-v1"
+redirectsOrigin = "config"
+plugins = []
+headers = []
+
+[build]
+publish = "/Users/nick.robin/Documents/My Cursor Projects/Personal/braze-mcp-test-3/dist"
+publishOrigin = "config"
+commandOrigin = "config"
+command = "npm run build"
+functions = "/Users/nick.robin/Documents/My Cursor Projects/Personal/braze-mcp-test-3/netlify/functions"
+
+[build.environment]
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
+
+[dev]
+framework = "vite"
+port = 8888.0
+targetPort = 8888.0
+
+[functions]
+
+[functions."*"]
+
+[[redirects]]
+from = "/api/*"
+to = "/.netlify/functions/:splat"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]

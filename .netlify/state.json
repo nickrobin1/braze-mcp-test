@@ -1,0 +1,21 @@
+{
+	"geolocation": {
+		"data": {
+			"city": "Oakland",
+			"country": {
+				"code": "US",
+				"name": "United States"
+			},
+			"subdivision": {
+				"code": "CA",
+				"name": "California"
+			},
+			"timezone": "America/Los_Angeles",
+			"latitude": 37.7794,
+			"longitude": -122.2178,
+			"postalCode": "94601"
+		},
+		"timestamp": 1743018901017
+	},
+	"siteId": "70658f13-62a7-466a-89e8-b5517f534f42"
+}
