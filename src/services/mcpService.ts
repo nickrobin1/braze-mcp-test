@@ -6,19 +6,21 @@ class MCPService {
 
   constructor(config: ServiceConfig) {
     console.log('MCPService initialized with config:', config);
-    console.log('Tools:', config.tools);
+    console.log('Initial tools:', JSON.stringify(config.tools));
     
-    // Store a reference to the actual tools array
+    // Clone the tools array to avoid reference issues
     this.config = {
-      tools: config.tools
+      tools: [...config.tools]
     };
   }
 
   async connect(): Promise<void> {
+    console.log('MCPService connected');
     // No need to initialize anything
   }
 
   disconnect(): void {
+    console.log('MCPService disconnected');
     // No cleanup needed
   }
 

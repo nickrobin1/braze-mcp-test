@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material'
 import Chat from './components/Chat'
 import MCPService from './services/mcpService'
-import { Tool, ServiceConfig } from './types/mcp'
+import { Tool } from './types/mcp'
 
 // Create a theme instance
 const theme = createTheme({
@@ -26,25 +26,20 @@ function App() {
       enabled: false,
     },
   ]);
-
-  // Create a mutable ref for the service configuration
-  const configRef = useRef<ServiceConfig>({ tools });
   
-  // Create MCPService instance once
-  const mcpServiceRef = useRef<MCPService | null>(null);
+  // Create MCPService instance
+  const [mcpService, setMcpService] = useState<MCPService | null>(null);
   
   // Initialize the service on mount
   useEffect(() => {
-    configRef.current = { tools };
-    if (!mcpServiceRef.current) {
-      mcpServiceRef.current = new MCPService(configRef.current);
-    }
-  }, [tools]);
+    const service = new MCPService({ tools });
+    setMcpService(service);
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {mcpServiceRef.current && <Chat mcpService={mcpServiceRef.current} tools={tools} setTools={setTools} />}
+      {mcpService && <Chat mcpService={mcpService} tools={tools} setTools={setTools} />}
     </ThemeProvider>
   )
 }

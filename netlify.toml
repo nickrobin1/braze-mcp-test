@@ -5,9 +5,9 @@
 
 [dev]
   framework = "vite"
-  port = 8889
+  port = 8890
   targetPort = 5173
-  functionsPort = 8890
+  functionsPort = 8891
   functions = "./netlify/functions"
   autoLaunch = true
 

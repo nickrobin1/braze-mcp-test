@@ -101,14 +101,19 @@ const Chat: React.FC<ChatProps> = ({ mcpService, tools, setTools }) => {
   };
 
   const handleToolToggle = (toolName: string) => {
-    // Update the tool in the state
+    console.log(`Toggling tool ${toolName} in UI component`);
+    
+    // First update the tool in the MCP service
+    mcpService.toggleTool(toolName);
+    
+    // Then update the UI state to match
     setTools(prevTools => 
       prevTools.map(tool => 
         tool.name === toolName ? { ...tool, enabled: !tool.enabled } : tool
       )
     );
-    // Also update the tool in the service
-    mcpService.toggleTool(toolName);
+    
+    console.log('Tools state updated in UI');
   };
 
   return (
