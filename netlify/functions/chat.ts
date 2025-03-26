@@ -78,7 +78,9 @@ export const handler: Handler = async (event) => {
     }
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-4-turbo-preview",
+      // @cursor-skip-start
+      model: "gpt-4o-mini",
+      // @cursor-skip-end
       messages: [systemMessage, ...messages],
       temperature: 0.7,
     });
