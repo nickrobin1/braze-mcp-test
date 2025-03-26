@@ -5,7 +5,13 @@ class MCPService {
   private messageHistory: Message[] = [];
 
   constructor(config: ServiceConfig) {
-    this.config = config;
+    console.log('MCPService initialized with config:', config);
+    console.log('Tools:', config.tools);
+    
+    // Store a reference to the actual tools array
+    this.config = {
+      tools: config.tools
+    };
   }
 
   async connect(): Promise<void> {
@@ -114,9 +120,13 @@ class MCPService {
   }
 
   toggleTool(toolName: string): void {
+    console.log('Toggling tool:', toolName);
     const tool = this.config.tools.find(t => t.name === toolName);
     if (tool) {
       tool.enabled = !tool.enabled;
+      console.log(`Tool ${toolName} is now ${tool.enabled ? 'enabled' : 'disabled'}`);
+    } else {
+      console.warn(`Tool ${toolName} not found in config`);
     }
   }
 

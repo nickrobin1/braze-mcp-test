@@ -20,9 +20,10 @@ import MCPService from '../services/mcpService';
 interface ChatProps {
   mcpService: MCPService;
   tools: Tool[];
+  setTools: React.Dispatch<React.SetStateAction<Tool[]>>;
 }
 
-const Chat: React.FC<ChatProps> = ({ mcpService, tools }) => {
+const Chat: React.FC<ChatProps> = ({ mcpService, tools, setTools }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isConnected, setIsConnected] = useState(false);
@@ -100,6 +101,13 @@ const Chat: React.FC<ChatProps> = ({ mcpService, tools }) => {
   };
 
   const handleToolToggle = (toolName: string) => {
+    // Update the tool in the state
+    setTools(prevTools => 
+      prevTools.map(tool => 
+        tool.name === toolName ? { ...tool, enabled: !tool.enabled } : tool
+      )
+    );
+    // Also update the tool in the service
     mcpService.toggleTool(toolName);
   };
 
